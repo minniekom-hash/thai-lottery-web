@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}สถิติหวยย้อนหลัง - นิยมตรวจหวยไทย{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+
+    <div class="text-center mb-10">
+        <span class="inline-block px-3 py-1 rounded-full bg-blue-900/60 text-sky-300 border border-blue-600/40 text-xs font-semibold mb-2.5">
+            <i class="fa-solid fa-clock-rotate-left text-amber-400 mr-1"></i> สถิติย้อนหลัง
+        </span>
+        <h1 class="text-3xl sm:text-4xl font-extrabold font-heading text-white tracking-tight">
+            สถิติผลสลากกินแบ่งรัฐบาลย้อนหลัง
+        </h1>
+        <p class="text-blue-200/80 text-xs sm:text-sm mt-2">
+            รวบรวมผลการออกรางวัลย้อนหลังทุกงวด (วันที่ 1 และ 16 ของเดือน) จากสำนักงานสลากกินแบ่งรัฐบาล
+        </p>
+    </div>
+
+    {% if draws %}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {% for d in draws %}
+        <div class="bg-[#102242] rounded-3xl p-6 border border-blue-500/30 shadow-xl hover:border-sky-400/60 transition-all flex flex-col justify-between">
+            <div>
+                <!-- Draw Header -->
+                <div class="flex items-center justify-between mb-4 pb-3 border-b border-blue-900/60">
+                    <span class="text-xs font-mono text-sky-400 font-semibold bg-[#071326] px-2.5 py-1 rounded-lg border border-blue-800">
+                        {{ d.draw_date }}
+                    </span>
+                    <h3 class="text-sm font-bold font-heading text-white">
+                        งวด {{ d.draw_date_thai }}
+                    </h3>
+                </div>
+
+                <!-- First Prize -->
+                <div class="bg-[#071326] rounded-2xl p-4 border border-blue-800/80 mb-4 text-center shadow-inner">
+                    <span class="text-[10px] uppercase tracking-wider text-blue-300/70 block mb-1">รางวัลที่ 1</span>
+                    <span class="text-3xl font-black font-mono tracking-widest text-amber-300">
+                        {{ d.first_prize }}
+                    </span>
+                </div>
+
+                <!-- Key Prizes Mini Grid -->
+                <div class="grid grid-cols-2 gap-2 text-center text-xs mb-4">
+                    <div class="bg-[#071326]/70 p-3 rounded-xl border border-blue-900/60">
+                        <span class="text-blue-300/60 block text-[10px] mb-0.5">เลขท้าย 2 ตัว</span>
+                        <strong class="text-emerald-400 font-mono text-lg font-bold">{{ d.last2 or '--' }}</strong>
+                    </div>
+                    <div class="bg-[#071326]/70 p-3 rounded-xl border border-blue-900/60">
+                        <span class="text-blue-300/60 block text-[10px] mb-0.5">เลขหน้า 3 ตัว</span>
+                        <strong class="text-sky-300 font-mono text-xs font-semibold">
+                            {{ d.last3f | join(', ') if d.last3f else '--' }}
+                        </strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="pt-3 border-t border-blue-900/60 flex items-center justify-between gap-2 text-xs">
+                <a href="{{ url_for('view_draw', date_str=d.draw_date) }}" class="flex-1 py-2.5 text-center font-bold font-heading text-sky-300 hover:text-white hover:bg-blue-900/60 rounded-xl transition">
+                    ตรวจรางวัลละเอียด
+                </a>
+                {% if d.pdf_url %}
+                <a href="{{ d.pdf_url }}" target="_blank" rel="noopener" class="p-2.5 text-blue-300 hover:text-rose-400 hover:bg-blue-900/60 rounded-xl transition" title="ดาวน์โหลด PDF เรียงเบอร์">
+                    <i class="fa-regular fa-file-pdf text-base"></i>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="bg-[#102242] rounded-3xl p-12 text-center border border-blue-500/30">
+        <i class="fa-solid fa-box-open text-3xl text-blue-400/40 mb-2"></i>
+        <h3 class="text-base font-bold font-heading text-white">ยังไม่มีข้อมูลงวดย้อนหลังในระบบ</h3>
+        <p class="text-blue-300/60 text-xs mt-1">ผู้ดูแลระบบสามารถกดดึงข้อมูลย้อนหลังจาก GLO ได้ที่หน้าจัดการแอดมิน</p>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}
