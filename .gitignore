@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+*.db
+*.sqlite3
+.env
+venv/
+env/
+*.log
+cloudflared.exe
+cloudflared
+run.bat
+start_public.bat
+.DS_Store
+Thumbs.db
