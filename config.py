@@ -31,5 +31,5 @@ class Config:
     LOCKOUT_DURATION_MINUTES = 15
     
     # Site Info
-    DEFAULT_SITE_TITLE = "นิยมตรวจหวยไทย"
-    DEFAULT_ANNOUNCEMENT = "ตรวจผลสลากกินแบ่งรัฐบาลได้แม่นยำ 100% อัปเดตตรงจากสำนักงานสลากกินแบ่งรัฐบาล (GLO) ทุกงวดวันที่ 1 และ 16 ของเดือน"
+    DEFAULT_SITE_TITLE = "คนนอนนาตรวจหวย"
+    DEFAULT_ANNOUNCEMENT = "ตรวจผลสลากกินแบ่งรัฐบาลได้แม่นยำ 100% อัปเดตทุกงวดวันที่ 1 และ 16 ของเดือน"
